@@ -1,3 +1,29 @@
+function parseLength(input) {
+  if (!input) return NaN;
+
+  let value = input.toString().trim().toLowerCase();
+
+  const inchIndicators = ['"', 'in', 'inch', 'inches'];
+
+  // Explicit inch units
+  if (inchIndicators.some(ind => value.includes(ind))) {
+    value = parseFloat(value);
+    return value * 25.4; // inches → mm
+  }
+
+  // Explicit mm
+  if (value.includes('mm')) {
+    return parseFloat(value);
+  }
+
+  // No units → infer
+  const num = parseFloat(value);
+  if (isNaN(num)) return NaN;
+
+  // <100 = inches, >=100 = mm
+  return num < 100 ? num * 25.4 : num;
+}
+
 function clearOnFocus(e) {
   e.target.value = "";
 }
@@ -39,9 +65,9 @@ document.getElementById('limitValue').textContent = limit.toFixed(3);
 }
 
 function calcRound() {
-  const d1 = Number(document.getElementById('d1').value);
-  const d2 = Number(document.getElementById('d2').value);
-  const d3 = Number(document.getElementById('d3').value);
+  const d1 = parseLength(document.getElementById('d1').value);
+  const d2 = parseLength(document.getElementById('d2').value);
+  const d3 = parseLength(document.getElementById('d3').value);
 
   const values = [d1, d2, d3];
 
