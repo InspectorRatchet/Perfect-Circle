@@ -19,7 +19,7 @@ h1 {
 }
 
 /* Input styling */
-input[type="number"] {
+input[type="text"] {
   width: 100%;
   padding: 14px;
   margin: 10px 0;
