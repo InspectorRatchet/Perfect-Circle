@@ -1,6 +1,6 @@
 {
   "name": "Roundness Calculator",
-  "short_name": "Perrfect Circle",
+  "short_name": "Perfect Circle",
   "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
