@@ -16,12 +16,11 @@ function parseLength(input) {
     return parseFloat(value);
   }
 
-  // No units → infer
+  // No units → treat as mm
   const num = parseFloat(value);
   if (isNaN(num)) return NaN;
 
-  // <100 = inches, >=100 = mm
-  return num < 100 ? num * 25.4 : num;
+  return num; // assume mm
 }
 
 function clearOnFocus(e) {
