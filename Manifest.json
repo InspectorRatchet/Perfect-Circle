@@ -1,4 +1,4 @@
-// SW version 14 — auto-update + update banner
+// SW version 15 — auto-update + update banner
 console.log("SW version 14");
 
 const CACHE_NAME = "roundness-cache-v14";
