@@ -122,4 +122,4 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => loader.style.display = "none", 200);
     }
   }, 350);
-})
+});
