@@ -118,8 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader");
     if (loader) {
       loader.style.opacity = "0";
-      loader.style.transition = "opacity 200ms ease";
-      setTimeout(() => loader.style.display = "none", 200);
+      loader.style.transition = "opacity 2000ms ease";
+      setTimeout(() => loader.style.display = "none", 2000);
     }
-  }, 350);
+  }, 3000);
 });
