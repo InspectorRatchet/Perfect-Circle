@@ -1,5 +1,7 @@
+const delay = ms => new Promise(r => setTimeout(r, ms));
+
 (async () => {
-  await new Promise(r => setTimeout(r, 4000));
+  await delay(4000); // 4 seconds
 })();
 
 function parseLength(input) {
