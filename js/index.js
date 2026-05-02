@@ -1,3 +1,7 @@
+(async () => {
+  await new Promise(r => setTimeout(r, 2000));
+})();
+
 function parseLength(input) {
   if (!input) return NaN;
 
@@ -113,13 +117,4 @@ function calcRound() {
   return { max, min, delta, nominal, limit };
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    const loader = document.getElementById("loader");
-    if (loader) {
-      loader.style.opacity = "0";
-      loader.style.transition = "opacity 2000ms ease";
-      setTimeout(() => loader.style.display = "none", 2000);
-    }
-  }, 3000);
-});
+
