@@ -113,28 +113,13 @@ function calcRound() {
   return { max, min, delta, nominal, limit };
 }
 
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
-    document.getElementById("loader").style.display = "none";
-  }, 350); // adjust this number
-});  <label>Max - Min:</label>
-  <span id="deltaValue"></span>
-</div>
-
-<div class="limit-box">
-  <label>1% Limit:</label>
-  <h1 id="limitValue"></h1>
-</div>
-
-<div id="statusMessage" class="status"></div>
-
-  </div>
-  
-  <script src="js/index.js"></script>
-  <script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("Sw.js");
-  }
-</script>
-</body>
-</html>
+    const loader = document.getElementById("loader");
+    if (loader) {
+      loader.style.opacity = "0";
+      loader.style.transition = "opacity 200ms ease";
+      setTimeout(() => loader.style.display = "none", 200);
+    }
+  }, 350);
+})
