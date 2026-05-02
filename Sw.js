@@ -1,15 +1,15 @@
-// SW version 16 — auto-update + update banner
-console.log("SW version 16");
+// SW version 17 — auto-update + update banner
+console.log("SW version 17");
 
-const CACHE_NAME = "roundness-cache-v14";
+const CACHE_NAME = "roundness-cache-v17";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
   "./css/index.css",
   "./js/index.js",
   "./Manifest.json",
-  "./icon-192.png",
-  "./icon-512.png"
+  "./icon-192-v2.png",
+  "./icon-512-v2.png"
 ];
 
 // Install — cache static assets and activate immediately
