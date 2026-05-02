@@ -1,7 +1,7 @@
-// SW version 18 — auto-update + update banner
-console.log("SW version 18");
+// SW version 19 — auto-update + update banner
+console.log("SW version 19");
 
-const CACHE_NAME = "roundness-cache-v17";
+const CACHE_NAME = "roundness-cache-v19";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
