@@ -1,13 +1,13 @@
-// SW version 13 — auto-update + update banner
-console.log("SW version 5");
+// SW version 15 — auto-update + update banner
+console.log("SW version 14");
 
-const CACHE_NAME = "roundness-cache";
+const CACHE_NAME = "roundness-cache-v14";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
-  "./style.css",
-  "./app.js",
-  "./manifest.json",
+  "./css/index.css",
+  "./js/index.js",
+  "./Manifest.json",
   "./icon-192.png",
   "./icon-512.png"
 ];
@@ -24,16 +24,13 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil(
     (async () => {
-      // Delete old caches
       const keys = await caches.keys();
       await Promise.all(
         keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
       );
 
-      // Take control immediately
       await self.clients.claim();
 
-      // Notify all open windows that a new version is ready
       const clientsList = await self.clients.matchAll({ type: "window" });
       for (const client of clientsList) {
         client.postMessage({ type: "NEW_VERSION_READY" });
@@ -46,7 +43,6 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const request = event.request;
 
-  // Network-first for app shell files
   if (
     request.url.endsWith(".html") ||
     request.url.endsWith(".js") ||
@@ -65,7 +61,6 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  // Cache-first for everything else
   event.respondWith(
     caches.match(request).then(cached => {
       return (
