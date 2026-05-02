@@ -1,5 +1,5 @@
-// SW version 20 — auto-update + update banner
-console.log("SW version 20");
+// SW version 21 — auto-update + update banner
+console.log("SW version 21");
 
 const CACHE_NAME = "roundness-cache-v20";
 const STATIC_ASSETS = [
