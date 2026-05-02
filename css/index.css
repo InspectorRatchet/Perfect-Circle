@@ -109,3 +109,18 @@ button:active {
 .status.fail {
   color: red;
 }
+
+@media (min-width: 768px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top:40px;
+    background:#1e1e1e;
+  }
+
+ .containe {
+  max-width: 420px;
+  width:1005 ;
+ }
+}
