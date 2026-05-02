@@ -1,40 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="Manifest.json">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <meta name="theme-color" content="#1a1a1a">
-  <link rel="stylesheet" href="css/index.css">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>Roundness Calculator</title>
-</head>
-<body>
+function parseLength(input) {
+  if (!input) return NaN;
+
+  let value = input.toString().trim().toLowerCase();
+
+  const inchIndicators = ['"', 'in', 'inch', 'inches'];
+
+  // Explicit inch units
+  if (inchIndicators.some(ind => value.includes(ind))) {
+    value = parseFloat(value);
+    return value * 25.4; // inches → mm
+  }
+
+  // Explicit mm
+  if (value.includes('mm')) {
+    return parseFloat(value);
+  }
+
+  // No units → treat as mm
+  const num = parseFloat(value);
+  if (isNaN(num)) return NaN;
+
+  return num; // assume mm
+}
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.addEventListener("message", event => {
+    if (event.data && event.data.type === "NEW_VERSION_READY") {
+      showUpdateBanner();
+    }
+  });
+}
+
+function showUpdateBanner() {
+  const banner = document.createElement("div");
+  banner.textContent = "Update available — tap to refresh";
+  banner.style.position = "fixed";
+  banner.style.bottom = "0";
+  banner.style.left = "0";
+  banner.style.right = "0";
+  banner.style.padding = "12px";
+  banner.style.background = "#1a1a1a";
+  banner.style.color = "white";
+  banner.style.textAlign = "center";
+  banner.style.fontSize = "16px";
+  banner.style.cursor = "pointer";
+  banner.style.zIndex = "9999";
+
+  banner.onclick = () => {
+    window.location.reload();
+  };
+
+  document.body.appendChild(banner);
+}
+
+function clearOnFocus(e) {
+  if (e.isTrusted) {
+    e.target.value = "";
+  }
+}
+
+const d1 = document.getElementById('d1');
+const d2 = document.getElementById('d2');
+const d3 = document.getElementById('d3');
+
+d1.addEventListener("focus", clearOnFocus);
+d2.addEventListener("focus", clearOnFocus);
+d3.addEventListener("focus", clearOnFocus);
+
+document.getElementById('calcForm').addEventListener('submit', e => {
+  e.preventDefault();
+  handleCalc();
+});
+
+
+
+function handleCalc(){
+  console.log('handleCalc Fired')
+  const {delta,limit} = calcRound()
+document.getElementById('deltaValue').textContent = delta.toFixed(3);
+document.getElementById('limitValue').textContent = limit.toFixed(3);
   
-  <div id="loader" style="
-  position: fixed;
-  inset: 0;a
-  background: #2e2e2e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-">
-  <img src="icon-192.png" style="width: 96px; opacity: 0.9;">
-</div>
-  
-  <div>
-    <h1>Input Measurments</h1>
-    <form id="calcForm">
-      <input id="d1" type="text" placeholder="D1" inputmode="decimal"></input>
-      <input id="d2" type="text" placeholder="D2" inputmode="decimal"></input>
-      <input id="d3" type="text" placeholder="D3" inputmode="decimal"></input>
-      <button type="submit">Calculate</button>
-    </form>
-    
-    <div class="result-line">
-  <label>Max - Min:</label>
+   const status = document.getElementById('statusMessage');
+
+  if (limit > delta) {
+    status.textContent = "Shell is within tolerance";
+    status.classList.remove("fail");
+    status.classList.add("ok");
+  } else {
+    status.textContent = "Shell is out of round";
+    status.classList.remove("ok");
+    status.classList.add("fail");
+  }
+  //document.getElementById('d1').value = "";
+//  document.getElementById('d2').value = "";
+  //document.getElementById('d3').value = "";
+}
+
+function calcRound() {
+  const d1 = parseLength(document.getElementById('d1').value);
+  const d2 = parseLength(document.getElementById('d2').value);
+  const d3 = parseLength(document.getElementById('d3').value);
+
+  const values = [d1, d2, d3];
+
+  const max = Math.max(...values);
+  const min = Math.min(...values);
+  const delta = max - min;
+
+  const nominal = (d1 + d2 + d3) / 3;
+  const limit = nominal * 0.01;
+
+  return { max, min, delta, nominal, limit };
+}
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+  }, 350); // adjust this number
+});  <label>Max - Min:</label>
   <span id="deltaValue"></span>
 </div>
 
